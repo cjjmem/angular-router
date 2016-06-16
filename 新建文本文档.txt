@@ -1,0 +1,70 @@
+
+
+
+
+    import { Component } from '@angular/core';
+    import { Inject } from '@angular/core';
+    import { bootstrap }    from '@angular/platform-browser-dynamic';
+
+    //引入路由相关类型定义
+
+    import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, RouteConfig } from '@angular/router-deprecated';
+
+    //EzApp组件 ： 路由配置与执行
+    @Component({
+        selector:"ez-app",
+        directives:[ROUTER_DIRECTIVES],
+        template :`
+             <nav>
+                <!--声明路由入口-->
+                <b router-link="video">video</b> | 
+                <b router-link="music">music</b>
+            </nav>
+            <main>
+                <!--声明路由出口-->
+                <router-outlet></router-outlet>
+            </main>
+        `
+    })
+
+    //路由配置
+    @RouteConfig([
+        {},
+        {path:"/video", component:EzVideo,as:"video"},
+        {path:"/music", component:EzMusic,as:"music"},
+
+    ])
+    class EzApp{
+        constructor(){
+        }
+
+    }
+
+    //EzVideo组件
+    @Component({
+        selector:"ez-video",
+        template : `
+            <h3>音乐：平凡111之路</h3>
+<embed src="http://player.yinyuetai.com/video/player/2094298/a_0.swf" quality="high" width="480" height="334" align="middle"  allowScriptAccess="sameDomain" allowfullscreen="true" type="application/x-shockwave-flash"></embed>
+
+            `
+    })
+
+    class EzVideo{}
+
+    //EzMusic组件
+    @Component({
+        selector:"ez-music",
+        template:`
+        <h3>音乐：平凡之路</h3>
+<embed src="http://player.yinyuetai.com/video/player/2094298/a_0.swf" quality="high" width="480" height="334" align="middle"  allowScriptAccess="sameDomain" allowfullscreen="true" type="application/x-shockwave-flash"></embed>	
+            `
+    })
+
+    class EzMusic{}
+
+    //注入路由功能依赖项
+    bootstrap(EzApp,[ROUTER_PROVIDERS]);
+
+
+
